@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="109403537林俊霆">
+    <meta name="description" content="This is my personal introduction site">
+    <title>林俊霆-個人CV</title>
+    <!-- tilte旁邊的icon使用學校官網圖片連結 -->
+    <link rel="shortcut icon" href="https://www.ncu.edu.tw/upload/ckupload/img/20210607_03115877.png" type="image/png">
+    <!-- 引入font-awesome的icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- 引入bootstrap的css("只"使用在網頁的網格系統跟表單樣式) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- 引入自己的css -->
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        //這個區塊使用JS(雖然JS不列入評分標準，但還是有使用)
+
+        // 按下按鈕，彈出alert視窗
+        function showSubmit() {
+            alert("您的資料已經送出，會盡快回復您！");
+        }
+
+        //使用ajax來讀取xml檔案
+        function loadInfoDoc() {
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onload = function () {
+                fetchInfoDoc(this);
+            }
+
+            xhttp.open("GET", "./Info.xml");
+            xhttp.send();
+        }
+
+        function fetchInfoDoc(xml) {
+            const xmlDoc = xml.responseXML;
+            const x = xmlDoc.getElementsByTagName("INFO");
+            let table = "<tr><th>年齡</th><th>身高</th><th>現居</th></tr>";
+
+            for (let i = 0; i < x.length; i++) {
+                table += "<tr><td>" +
+                    x[i].getElementsByTagName("AGE")[0].childNodes[0].nodeValue +
+                    "</td><td>" +
+                    x[i].getElementsByTagName("HEIGHT")[0].childNodes[0].nodeValue +
+                    "</td><td>" +
+                    x[i].getElementsByTagName("RESIDENT")[0].childNodes[0].nodeValue +
+                    "</td></tr>";
+            }
+
+            document.getElementById("infoArea").innerHTML = table;
+        }
+
+        //使用ajax來讀取txt檔案
+        function loadAboutMeDoc(){
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onload = function () {
+               document.getElementById("aboutMeArea").innerHTML = xhttp.responseText;
+            }
+
+            xhttp.open("GET", "./aboutMe.txt");
+            xhttp.send();
+        }
+
+        //網頁加載完成後，立即執行loadAboutMeDoc()
+        window.onload = function () {
+            loadAboutMeDoc();
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 使用CSS，用list做成水平導覽列，並可點擊超連結，自動跳到指定section區塊 -->
+    <nav>
+        <ul>
+            <li><a href="#myInfo">關於我</a></li>
+            <li><a href="#specialized">我的專業</a></li>
+            <li><a href="#skill">技能</a></li>
+            <li><a href="#certificate">證照</a></li>
+            <li><a href="#work">作品</a></li>
+            <li class="contact"><a class="active" href="#contactMe">聯絡我</a></li>
+        </ul>
+    </nav>
+
+    <hr>
+    <section id="myInfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <!-- 使用CSS，圖片大小調整及圓角效果 -->
+                    <!-- 圖片語法中使用相對路徑(表示同一層目錄底下>>>img資料夾>>>的這張圖片) -->
+                    <img src="./img/main_photo.jpg"></img>
+                    <h2>林俊霆</h2>
+                    <h3>Lin, Jun-Ting</h3>
+                </div>
+                <div class="col-3">
+                    <a href="https://www.instagram.com/timothy_lin_91218/" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <br>
+                    <a href="https://www.facebook.com/profile.php?id=100009889784302" target="_blank">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <br>
+                    <a href="https://github.com/JunTingLin" target="_blank">
+                        <i class="fa-brands fa-github"></i>
+                    此github icon超連結為個人主帳<span style="color: red;"><br>並非</span>這次網程考試用的
+                    </a>
+                    <!-- <br>年齡: 20
+                    <br>身高: 180cm
+                    <br>現居: 台北 -->
+                    <!-- 註解掉是因為後來改用JS讀入 -->
+                    <br>
+                    <button type="button" onclick="loadInfoDoc()">顯示其他資訊</button>
+                    <br>
+                    <table id="infoArea"></table>
+                </div>
+                <div class="col-6">
+                    <h1>關於我</h1>
+                    <!-- <p>父母都是資訊人，從小受父母薰陶，整天沉浸在coding的樂趣當中；
+                        除此之外也喜愛攝影美工、剪輯影片，給畫面增添色彩，給影片增加趣味。
+                        目前就讀中大資管系，朝著自己兩大夢想前進。</p> -->
+                    <!-- 註解掉是因為後來改用JS讀入 -->
+                    <p id="aboutMeArea"></P>
+                    <!-- 使用CSS，整個網頁內容的字體均使用google外部字型 -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <hr>
+    <section id="specialized">
+        <div class="container">
+            <center>
+                <!-- 使用CSS，只要h1的第一個字均變色並放大 -->
+                <h1>我的專業</h1>
+            </center>
+            <div class="row">
+                <div class="col">
+                    <h2>程式設計</h2>
+                    我的母親是資訊管理學系畢業，我的父親是資訊工程學系畢業，
+                    在惠普科技相關企業做了35年， 現在是一位專業資深經理人，
+                    所以想當然耳我從小就在資訊科學的環境中長大，
+                    對這塊巨大的領域也是非常著迷且竭盡所能去探索與挖掘，
+                    高中就拿下全校資訊科學競賽佳作與優等的好成績，
+                    甚至還拿下了全國高級中等學校閱讀心得寫作比賽優等(閱讀書目：大數據時代約無限商機)。
+                    目前持有兩張oracle Java國際證照。
+                </div>
+                <div class="col">
+                    <h2>視覺設計</h2>
+                    我的興趣也可說是資訊科技的一部份，我喜歡攝影、文書排版， 從小就很有審美觀的我，
+                    在國小就拿下台北市兒童美術創作銅牌獎、美術比賽中年級繪畫佳作，
+                    部落格排版設計佳作，之前加入學校電繪社，自學PS、AI。 高中學習檔案製作特優，
+                    甚至校慶還拿下攝影比賽第二名的殊榮， 國三時是畢業紀念冊設計團員之一。
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2>網頁製作</h2>
+                    雖然剛開始接觸網頁設計，
+                    但有程式跟美工基礎的我，讓我非常好上手，
+                    前端後端一條龍服務，我這位全端工程師通通都可以包辦。
+                </div>
+                <div class="col">
+                    <h2>影片剪輯</h2>
+                    平常會看一些剪輯大神們的影片(如:視頻大拍檔、影視颶風)，
+                    學會如何運鏡、用Adobe Premiere Pro剪輯、After Effects做特效，
+                    高三加入畢聯會，剪輯過班上畢業進場短片、謝師宴影片、該年度畢業歌MV。
+                    大學時也加入系學會新聞部，負責過系上密室逃脫宣傳影片剪輯、系上資管之夜影片剪輯。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+    <section id="skill">
+        <!-- 使用CSS，用transition來做個小動畫，滑鼠移到此div區塊，width會延伸到指定長度 -->
+        <div class="container">
+            <center>
+                <h1>技能</h1>
+                <p>移動到方框內，有動畫喔~~</p>
+            </center>
+            <div class="row">
+                <div class="col" id="design">
+                    <h2>設計</h2>
+                    Premiere Pro<div id="PR"></div>
+                    Photoshop<div id="PS"></div>
+                    Word/PowerPoint<div id="WORD"></div>
+                </div>
+                <div class="col" id="programming">
+                    <h2>設計</h2>
+                    Java<div id="java"></div>
+                    html<div id="html"></div>
+                    python<div id="python"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+    <section id="certificate">
+        <!-- 使用CSS，這邊做透明度的切換，當滑鼠移到畫框內，opacity設為1 -->
+        <div class="container">
+            <center>
+                <h1>證照</h1>
+            </center>
+            <!-- 下面三張圖均使用絕對路徑(網路上server的某張圖) -->
+            <div class="row">
+                <div class="col">
+                    <div class="gallery">
+                        <a href="./doc/Oracle Certified Associate, Java SE 8 Programmer.pdf" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Oracle_Logo.svg/250px-Oracle_Logo.svg.png">
+                        </a>
+                        <div class="remarks">
+                            JAVA OCA
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="gallery">
+                        <a href="./doc/Oracle Certified Professional, Java SE 8 Programmer.pdf" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Oracle_Logo.svg/250px-Oracle_Logo.svg.png">
+                        </a>
+                        <div class="remarks">
+                            JAVA OCP
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="gallery">
+                        <a href="./doc/多益藍色證書.pdf" target="_blank">
+                            <img src="https://www.ets.org/rsc/img/logo/toeic.svg">
+                        </a>
+                        <div class="remarks">
+                            TOEIC
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <hr>
+    <section id="work">
+        <center>
+            <h1>作品</h1>
+        </center>
+        <table border="2" align="center">
+            <tr style="background-color: lightgoldenrodyellow;">
+                <th>名稱</th>
+                <th>簡介</th>
+                <th>照片</th>
+                <th>額外資訊</th>
+            </tr>
+            <tr style="background-color: rgb(181, 223, 250)">
+                <td>NCU soccer game<br>(Assembly)</td>
+                <td>
+                    透過MASM32的函式庫搭配上課所學的ASM語法，<br>
+                    打造出雙方可以互玩的足球射門遊戲， 一位玩家透過WASD控制方向，<br>
+                    一位玩家透過上下左右控制移動，進對方球門得分， <br>
+                    獲勝後出現該玩家的大頭貼，按ENTER可再繼續遊戲。
+                </td>
+                <td><img src="./img/project1_ASM.jpg" alt="project1_ASM" width="245" height="245"></td>
+                <td>
+                    <ul>
+                        <li>林俊霆 王XX 林XX 洪XX</li>
+                        <li>指導:鄭XX 教授</li>
+                        <li>January 1, 2022</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr style="background-color: rgb(181, 223, 250)">
+                <td>Ordering system<br>(Java)</td>
+                <td>
+                    不管是點套餐還是單點，全部都是由外部的CSV檔讀取， <br>
+                    可以很方便的更換菜單更換套餐組合，不需動到程式碼， <br>
+                    並且最後會列出收據明細給客人，會在店內的交易紀錄檔記錄下每筆訂單、時間等資訊。
+                </td>
+                <td><img src="./img/project2_java.jpg" alt="project2_java" width="245" height="245"></td>
+                <td>
+                    <ul>
+                        <li>林俊霆 洪XX 謝XX 陳XX</li>
+                        <li>指導:陳XX 教授</li>
+                        <li>June 18, 2021</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr style="background-color: rgb(181, 223, 250)">
+                <td>蝦皮爬蟲&賣家競品分析<br>(Python)</td>
+                <td>
+                    在剛成為賣家不熟悉市場時 , 定價策略顯得尤其重要 為了找到在蝦皮上最佳銷售策略，<br>
+                    所以撰寫了這支蝦皮賣家競品分析。 此次的目標很簡單，掌握競品情報來提高自己銷售業績：<br>
+                    <ol>
+                        <li>找出商品的人氣特性</li>
+                        <li>透過觀察價格分布決定價格,並預估收益</li>
+                        <li>實際搜尋</li>
+                        <li>找出賣家地理位置分布,決定賣場要設哪</li>
+                    </ol>
+                </td>
+                <td><img src="./img/project3_python.jpg" alt="project3_python" width="245" height="245"></td>
+                <td>
+                    <ul>
+                        <li>林俊霆 許XX</li>
+                        <li>指導:何XX 教授</li>
+                        <li>December 29, 2021</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <hr>
+    <section id="contactMe">
+
+        <div class="container">
+            <center>
+                <h1>聯絡我</h1>
+            </center>
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="form-group">
+                            <label for="email1">Email信箱</label>
+                            <input type="email" class="form-control" id="email1" placeholder="輸入信箱">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">內容</label>
+                            <textarea class="form-control" id="content" placeholder="請輸入內容"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" onclick="showSubmit()">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+</body>
+
+</html>
+
+
+<!-- 
+校徽來自中央大學官網
+logo圖片均來自官方網站或維基百科上的logo圖
+大頭貼及部分圖片為考生自行準備
+icon使用來自fontawesome.com
+網格系統跟表單CSS美化使用bootstrap
+其餘均來自考生設計，參考上課投影片使用
+ -->

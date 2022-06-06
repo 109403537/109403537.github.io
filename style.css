@@ -1,0 +1,153 @@
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+
+/* 
+使用google font外部字型
+參考:http://www.flycan.com/article/css/google-fonts-webfont-2474.html 
+*/
+body {
+    font-family: 'cwTeXFangSong', sans-serif;
+}
+
+.w3-bar-block .w3-bar-item {
+    padding: 20px
+}
+
+/* 這邊只要使用h1 tag，第一個字會變大變色*/
+h1::first-letter {
+    color: red;
+    font-size: 50px;
+}
+
+
+
+/* myInfo section */
+/* 這邊調整圖片大小跟圓角效果 */
+#myInfo img {
+    border-radius: 50%;
+    width: 100px
+}
+
+#myInfo a {
+    text-decoration: none;
+}
+
+/* specialized section */
+#specialized h2::first-letter{
+    font-size: 35px;
+    font-weight:bold;
+    background-color: blanchedalmond;
+}
+
+/* skill section */
+/* 這邊使用transition來做個小動畫，滑鼠移到此div區塊，width會延伸到指定長度 */
+#skill #design div {
+    width: 10px;
+    height: 40px;
+    background: tomato;
+    transition: width 2s;
+}
+
+#skill #design #PR:hover {
+    width: 200px;
+}
+
+#skill #design #PS:hover {
+    width: 150px;
+}
+
+#skill #design #WORD:hover {
+    width: 200px;
+}
+
+#skill #programming div {
+    width: 10px;
+    height: 40px;
+    background: tomato;
+    transition: width 2s;
+}
+
+#skill #programming #java:hover {
+    width: 200px;
+}
+
+#skill #programming #html:hover {
+    width: 150px;
+}
+
+#skill #programming #python:hover {
+    width: 200px;
+}
+
+/* certificate section*/
+/* 這邊做透明度的切換，當滑鼠移到畫框內，opacity設為1 */
+#certificate div.gallery {
+    margin: 0 auto;
+}
+
+#certificate div.gallery img {
+    width: 250px;
+    height: 200px;
+    opacity: 0.4;
+    transition: opacity 1s ease;
+}
+
+#certificate div.remarks {
+    padding: 15px;
+    text-align: center;
+}
+
+#certificate div.gallery {
+    margin: 0 auto;
+    border: 1px solid tomato;
+    float: left;
+    height: 300px;
+}
+
+#certificate div.gallery:hover {
+    border: 3px solid red;
+}
+
+#certificate div.gallery:hover img {
+    opacity: 1;
+}
+
+/* nav bar */
+/* 這邊是導覽列的部分，實作參考老師PPT */
+nav ul {
+    font-size: 24px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+
+    z-index: 100000px;
+}
+
+nav li {
+    float: left;
+}
+
+nav li.contact {
+    float: right;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 14px;
+    text-decoration: none;
+}
+
+nav li a:hover:not(.active) {
+    background-color: gray;
+}
+
+nav li a.active {
+    background-color: orange;
+}
